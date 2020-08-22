@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import actions from '../../store/actions';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { IInitialState } from '../../store/initial-state';
+import { IInitialState, IIssue } from '../../store/initial-state';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,8 +52,11 @@ export default function Search() {
   }, [issues, search, dispatch]);
 
   const onClose = React.useCallback((_, reason) => {
-    if (reason === 'blur' && !!search) {
-      const issuesSelected = issues.filter(({ title }) => title.toLowerCase().includes(search.toLowerCase()));
+    if (reason === 'blur') {
+      let issuesSelected: IIssue[] = [];
+      if (search) {
+        issuesSelected = issues.filter(({ title }) => title.toLowerCase().includes(search.toLowerCase()))
+      }
       dispatch(actions.issuesSelected(issuesSelected));
     }
   }, [dispatch, issues, search]);
