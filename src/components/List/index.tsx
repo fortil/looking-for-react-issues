@@ -11,6 +11,8 @@ import { useSelector } from 'react-redux';
 import Loader from 'react-loader-spinner';
 import Chip from '@material-ui/core/Chip';
 import { IInitialState } from '../../store/initial-state';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,10 +78,13 @@ function IssueList() {
                 <BugReportIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={issue.title} secondary={<>
-              <span>Labels:</span>{' '}
-              {issue.labels.map(({ name }, i) => <Chip key={i} variant='outlined' size='small' label={name} color={i % 2 === 0 ? 'primary' : 'secondary'} />)}
-            </>} />
+            <ListItemText primary={issue.title} secondary={
+              <Typography component="span">
+                <Grid component="span">
+                  <span>Labels:</span>{' '}
+                  <div>{issue.labels.map(({ name }, i) => <Chip key={i} component='div' variant='outlined' size='small' label={name} color={i % 2 === 0 ? 'primary' : 'secondary'} />)}</div>
+                </Grid>
+              </Typography>} />
           </ListItem>
         )) : '')}
     </List>

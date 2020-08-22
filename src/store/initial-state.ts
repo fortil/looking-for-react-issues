@@ -5,7 +5,7 @@ export interface ILabel {
   name: string;
   color: string;
   default: boolean;
-  description?: string
+  description: string | null
 }
 export interface IIssue {
   url: string;
@@ -18,21 +18,21 @@ export interface IIssue {
   node_id: string;
   number: number;
   title: string;
-  user: { [k: string]: string }[];
+  user: { [k: string]: string };
   labels: ILabel[];
   state: string;
-  locked: false;
-  assignee: null;
+  locked: boolean;
+  assignee: { [k: string]: string } | null;
   assignees: { [k: string]: string }[];
   milestone: null;
   comments: number;
   created_at: string;
   updated_at: string;
-  closed_at?: string;
+  closed_at: string | null;
   author_association: string;
-  active_lock_reason?: string;
+  active_lock_reason: string | null;
   body: string;
-  performed_via_github_app?: string;
+  performed_via_github_app: string | null;
 }
 
 export interface IInitialState {
