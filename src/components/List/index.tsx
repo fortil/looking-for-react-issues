@@ -77,7 +77,7 @@ function IssueList() {
               </Avatar>
             </ListItemAvatar>
             <ListItemText primary={issue.title} secondary={<>
-              <span>Labels:</span>
+              <span>Labels:</span>{' '}
               {issue.labels.map(({ name }, i) => <Chip key={i} variant='outlined' size='small' label={name} color={i % 2 === 0 ? 'primary' : 'secondary'} />)}
             </>} />
           </ListItem>
