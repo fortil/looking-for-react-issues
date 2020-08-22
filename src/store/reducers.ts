@@ -1,17 +1,31 @@
 import { createReducer } from 'reduxsauce';
 import { Types } from './actions';
-import INITIAL_STATE from './initial-state';
+import INITIAL_STATE, { IInitialState, IIssue } from './initial-state';
 
-const setData = (state = INITIAL_STATE, { type, data }) => {
+interface IParams {
+  type: string;
+  data: boolean | IIssue[]
+}
+interface ISeData {
+  (state: IInitialState, params: IParams): IInitialState;
+}
+
+const setData: ISeData = (state = INITIAL_STATE, { type, data }) => {
   switch (type) {
     case Types.ISSUES:
-      state[type] = [...data];
+      if (Array.isArray(data)) {
+        state.ISSUES = [...data];
+      }
       return { ...state };
     case Types.LOADING:
-      state[type] = data;
+      if (typeof data === 'boolean') {
+        state.LOADING = data;
+      }
       return { ...state };
     case Types.ISSUES_SELECTED:
-      state[type] = [...data];
+      if (Array.isArray(data)) {
+        state.ISSUES_SELECTED = [...data];
+      }
       return { ...state };
     default:
       return state;

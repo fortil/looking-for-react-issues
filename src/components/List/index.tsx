@@ -10,6 +10,7 @@ import MouseTrap from 'mousetrap';
 import { useSelector } from 'react-redux';
 import Loader from 'react-loader-spinner';
 import Chip from '@material-ui/core/Chip';
+import { IInitialState } from '../../store/initial-state';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 function IssueList() {
   const classes = useStyles();
   const [itemSelected, setItemSelected] = React.useState<number>();
-  const { loading, issues } = useSelector((state: any) => ({ loading: state.LOADING, issues: state.ISSUES_SELECTED }));
+  const { loading, issues } = useSelector((state: IInitialState) => ({ loading: state.LOADING, issues: state.ISSUES_SELECTED }));
 
   const goDown = React.useCallback(() => {
     setItemSelected((prev) => {
@@ -67,7 +68,7 @@ function IssueList() {
 
   return (
     <List className={issues.length ? classes.root : classes.noColor}>
-      {(loading && <Loader type='ThreeDots' color='#2BAD60' height='50' width='400' />) ||
+      {(loading && <Loader type='ThreeDots' color='#2BAD60' height={50} width={400} />) ||
         issues.map((issue, i) => (
           <ListItem button key={i} selected={itemSelected === i} onClick={() => openIssue(issue)}>
             <ListItemAvatar>

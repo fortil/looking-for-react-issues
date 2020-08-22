@@ -1,13 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
 import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
 import { useDispatch, useSelector } from 'react-redux';
 import actions from '../../store/actions';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { IInitialState } from '../../store/initial-state';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CustomizedInputBase() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const issues = useSelector((state: any) => state.ISSUES);
+  const issues = useSelector((state: IInitialState) => state.ISSUES);
   const [search, setSearch] = React.useState('');
 
   const onInputChange = React.useCallback((_, value) => {
@@ -70,7 +68,7 @@ export default function CustomizedInputBase() {
         onChange={onChange}
         onInputChange={onInputChange}
         onClose={onClose}
-        getOptionLabel={(option: any) => option.title}
+        getOptionLabel={(option) => option.title}
         style={{ width: 375 }}
         renderInput={(params) => <TextField
           {...params}

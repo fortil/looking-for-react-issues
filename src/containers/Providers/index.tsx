@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import store from '../../store';
 
-function Providers(props) {
+const Providers: React.FunctionComponent = (props) => {
   return (
     <Provider store={store}>
       {props.children}

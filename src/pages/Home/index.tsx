@@ -7,6 +7,7 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import actions from '../../store/actions';
 import { useDispatch } from 'react-redux';
+
 function Home() {
   const dispatch = useDispatch();
   React.useEffect(() => {

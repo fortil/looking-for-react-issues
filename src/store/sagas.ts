@@ -1,9 +1,9 @@
 import { all, put, takeLatest, call } from 'redux-saga/effects';
 import actions, { Types } from './actions';
 
-function* getReactIssues({ type, data }) {
+function* getReactIssues({ type, data }: { type: string, data: boolean }) {
   try {
-    if (!data) {
+    if (!data || type !== Types.GET_REACT_ISSUES) {
       return;
     }
     // start loading
