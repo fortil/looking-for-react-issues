@@ -69,7 +69,7 @@ function IssueList() {
   return (
     <List className={issues.length ? classes.root : classes.noColor}>
       {(loading && <Loader type='ThreeDots' color='#2BAD60' height={50} width={400} />) ||
-        issues.map((issue, i) => (
+        (issues.length ? issues.map((issue, i) => (
           <ListItem button key={i} selected={itemSelected === i} onClick={() => openIssue(issue)}>
             <ListItemAvatar>
               <Avatar>
@@ -81,7 +81,7 @@ function IssueList() {
               {issue.labels.map(({ name }, i) => <Chip key={i} variant='outlined' size='small' label={name} color={i % 2 === 0 ? 'primary' : 'secondary'} />)}
             </>} />
           </ListItem>
-        ))}
+        )) : '')}
     </List>
   );
 }

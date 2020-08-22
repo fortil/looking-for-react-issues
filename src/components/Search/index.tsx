@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomizedInputBase() {
+export default function Search() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const issues = useSelector((state: IInitialState) => state.ISSUES);
@@ -39,7 +39,7 @@ export default function CustomizedInputBase() {
   }, []);
 
   const onChange = React.useCallback((_, value) => {
-    dispatch(actions.issuesSelected([value]));
+    dispatch(actions.issuesSelected(value ? [value] : []));
   }, [dispatch]);
 
   const submit = React.useCallback((evt) => {
