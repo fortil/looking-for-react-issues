@@ -1,10 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from 'react-redux';
-import actions from '../../store/actions';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import actions from '../../store/actions';
 import { IInitialState, IIssue } from '../../store/initial-state';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: 400,
+    [theme.breakpoints.down('sm')]: {
+      width: 320
+    }
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -33,6 +38,11 @@ export default function Search() {
   const dispatch = useDispatch();
   const issues = useSelector((state: IInitialState) => state.ISSUES);
   const [search, setSearch] = React.useState('');
+
+  const theme = useTheme();
+  const md = useMediaQuery(theme.breakpoints.up('sm'));
+
+  const numBreak = md ? 375 : 300;
 
   const onInputChange = React.useCallback((_, value) => {
     setSearch(value);
@@ -72,7 +82,7 @@ export default function Search() {
         onInputChange={onInputChange}
         onClose={onClose}
         getOptionLabel={(option) => option.title}
-        style={{ width: 375 }}
+        style={{ width: numBreak }}
         renderInput={(params) => <TextField
           {...params}
           label='Search React issues'
