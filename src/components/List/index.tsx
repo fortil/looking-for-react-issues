@@ -6,6 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import BugReportIcon from '@material-ui/icons/BugReport';
+import MouseTrap from 'mousetrap';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,35 +17,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FolderList() {
+const issues = [
+  { title: 'Photos', tags: 'hello asd asd' },
+  { title: 'Photos 1', tags: 'hello as' },
+  { title: 'Photos 2', tags: 'hello asds' },
+  { title: 'Photos 3', tags: 'hello' },
+];
+
+function IssueList() {
   const classes = useStyles();
+  const [itemSelected, setItemSelected] = React.useState<number>();
+  const goDown = React.useCallback(() => {
+    setItemSelected(prev => {
+      return typeof prev === 'undefined' ? 0 : prev === issues.length - 1 ? 0 : prev + 1;
+    })
+  }, []);
+  React.useEffect(() => {
+    MouseTrap.bind('down', goDown);
+    return () => MouseTrap.unbind('down')
+  }, [goDown]);
 
   return (
     <List className={classes.root}>
-      <ListItem button>
+      {issues.map((issue, i) => (<ListItem button key={i} selected={itemSelected === i}>
         <ListItemAvatar>
           <Avatar>
             <BugReportIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-      </ListItem>
-      <ListItem button>
-        <ListItemAvatar>
-          <Avatar>
-            <BugReportIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
-      </ListItem>
-      <ListItem button>
-        <ListItemAvatar>
-          <Avatar>
-            <BugReportIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Vacation" secondary="July 20, 2014" />
-      </ListItem>
+        <ListItemText primary={issue.title} secondary={issue.tags} />
+      </ListItem>))}
     </List>
   );
 }
+
+export default IssueList;
