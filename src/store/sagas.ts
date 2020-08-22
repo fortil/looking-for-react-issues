@@ -1,21 +1,29 @@
-import { all, put, takeLatest } from 'redux-saga/effects';
-import action, { Types } from './actions';
+import { all, put, takeLatest, call } from 'redux-saga/effects';
+import actions, { Types } from './actions';
 
-function* getClick({ type, data }) {
+function* getReactIssues({ type, data }) {
   try {
     if (!data) {
       return;
     }
-    yield put(action.loading({ init: true }));
-    yield new Promise((res) => setTimeout(res, 3000));
-    yield put(action.loading({ init: false }));
+    // start loading
+    yield put(actions.loading(true));
+    // requesting the react issues
+    const response = yield call(fetch, 'https://api.github.com/repos/facebook/react/issues');
+    const body = yield response.json();
+    // keep the react issues
+    yield put(actions.issues(body));
+    // stop loading
+    yield put(actions.loading(false));
   } catch (error) {
-    yield put(action.loading({ init: false }));
+    // stop loading
+    yield put(actions.loading(false));
+    console.error(error);
   }
 }
 
 function* rootSaga() {
-  yield all([takeLatest(Types.CLICK_SEARCH, getClick)]);
+  yield all([takeLatest(Types.GET_REACT_ISSUES, getReactIssues)]);
 }
 
 export default rootSaga;

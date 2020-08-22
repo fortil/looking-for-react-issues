@@ -1,4 +1,5 @@
 export default {
-  TYPING: '',
-  CLICK_SEARCH: false,
+  ISSUES_SELECTED: [],
+  LOADING: false,
+  ISSUES: [],
 }

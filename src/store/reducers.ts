@@ -4,9 +4,17 @@ import INITIAL_STATE from './initial-state';
 
 const setData = (state = INITIAL_STATE, { type, data }) => {
   switch (type) {
-    default:
+    case Types.ISSUES:
+      state[type] = [...data];
+      return { ...state };
+    case Types.LOADING:
       state[type] = data;
       return { ...state };
+    case Types.ISSUES_SELECTED:
+      state[type] = [...data];
+      return { ...state };
+    default:
+      return state;
   }
 };
 

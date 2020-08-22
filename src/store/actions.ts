@@ -5,17 +5,20 @@ export const { Types, Creators } = createActions({
    * Capture the text typed
    * @param {String} text typed
    */
-  typing: ['data'],
-  /**
-   * Capture the click
-   * @param {Boolean} click event to search into github
-   */
-  clickSearch: ['data'],
+  issuesSelected: ['data'],
   /**
    * Loading
    * @param {Boolean} loading event
    */
-  loading: ['data']
+  loading: ['data'],
+  /**
+   * loading all react issues
+   */
+  getReactIssues: ['data'],
+  /**
+   * loading all react issues
+   */
+  issues: ['data']
 });
 
 export default Creators;

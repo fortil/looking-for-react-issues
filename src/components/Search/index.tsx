@@ -2,8 +2,12 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
+import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+import { useDispatch, useSelector } from 'react-redux';
+import actions from '../../store/actions';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,17 +32,54 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomizedInputBase() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const issues = useSelector((state: any) => state.ISSUES);
+  const [search, setSearch] = React.useState('');
+
+  const onInputChange = React.useCallback((_, value) => {
+    setSearch(value);
+  }, []);
+
+  const onChange = React.useCallback((_, value) => {
+    dispatch(actions.issuesSelected([value]));
+  }, [dispatch]);
+
+  const submit = React.useCallback((evt) => {
+    evt.preventDefault();
+    (document.getElementById('auto-complete') as any).blur();
+    if (search) {
+      const issuesSelected = issues.filter(({ title }) => title.toLowerCase().includes(search.toLowerCase()));
+      dispatch(actions.issuesSelected(issuesSelected));
+    }
+  }, [issues, search, dispatch]);
+
+  const onClose = React.useCallback((_, reason) => {
+    if (reason === 'blur' && !!search) {
+      const issuesSelected = issues.filter(({ title }) => title.toLowerCase().includes(search.toLowerCase()));
+      dispatch(actions.issuesSelected(issuesSelected));
+    }
+  }, [dispatch, issues, search]);
+
 
   return (
-    <Paper component="form" className={classes.root}>
-      <InputBase
-        className={classes.input}
-        placeholder="Search React issues"
-        inputProps={{ 'aria-label': 'search react issues' }}
+    <Paper id='paper-autocomplete' component='form' className={classes.root} onSubmit={submit}>
+      <Autocomplete
+        id='auto-complete'
+        options={issues}
+        clearOnBlur={false}
+        onChange={onChange}
+        onInputChange={onInputChange}
+        onClose={onClose}
+        getOptionLabel={(option: any) => option.title}
+        style={{ width: 375 }}
+        renderInput={(params) => <TextField
+          {...params}
+          label='Search React issues'
+          margin='normal'
+          variant='outlined'
+          InputProps={{ ...params.InputProps, type: 'search', className: classes.input }}
+        />}
       />
-      <IconButton type="submit" className={classes.iconButton} aria-label="search">
-        <SearchIcon />
-      </IconButton>
     </Paper>
   );
 }
