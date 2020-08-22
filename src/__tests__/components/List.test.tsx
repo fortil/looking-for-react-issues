@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, fireEvent, waitForElement, screen } from '@testing-library/react';
-import { useSelector, useDispatch } from 'react-redux';
+import { render, screen } from '@testing-library/react';
+import { useSelector } from 'react-redux';
 
 import { data } from '../utils';
 import List from '../../components/List';
@@ -20,17 +20,17 @@ describe('<List />', () => {
     jest.restoreAllMocks();
   });
 
-  test('should render ok a empty list without loading', async () => {
+  test('should render ok a empty list without loading', () => {
     render(<List />);
     expect(screen.getByRole('list')).toBeEmpty();
   });
-  test('should render ok a empty list with loading', async () => {
+  test('should render ok a empty list with loading', () => {
     (useSelector as any).mockImplementation((fn: any) => fn({ ...INITIAL_STATE, LOADING: true }));
     render(<List />);
     const svg = screen.queryByText('svg');
     expect(svg).toBeNull();
   });
-  test('should render ok a list of items', async () => {
+  test('should render ok a list of items', () => {
     (useSelector as any).mockImplementation((fn: any) => fn({ ...INITIAL_STATE, ISSUES_SELECTED: data }));
     render(<List />);
     expect(screen.getByRole('list')).not.toBeEmpty();

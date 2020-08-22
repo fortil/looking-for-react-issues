@@ -4,6 +4,7 @@ import createSagaMiddleware from 'redux-saga';
 import reducersApp from './reducers';
 import saga from './sagas';
 
+/* just remove this code in develop env */
 // declare global {
 //   /* tslint:disable:interface-name */
 //   interface Window {
