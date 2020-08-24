@@ -10,9 +10,10 @@ import MouseTrap from 'mousetrap';
 import { useSelector } from 'react-redux';
 import Loader from 'react-loader-spinner';
 import Chip from '@material-ui/core/Chip';
-import { IInitialState } from '../../store/initial-state';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
+import { IInitialState } from '../../store/initial-state';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,7 +73,7 @@ const IssueList: React.FC = () => {
     <List className={issues.length ? classes.root : classes.noColor}>
       {(loading && <Loader type='ThreeDots' color='#2BAD60' height={50} width={400} />) ||
         (issues.length ? issues.map((issue, i) => (
-          <ListItem button key={i} selected={itemSelected === i} onClick={() => openIssue(issue)}>
+          <React.Fragment key={i}><ListItem button selected={itemSelected === i} onClick={() => openIssue(issue)}>
             <ListItemAvatar>
               <Avatar>
                 <BugReportIcon />
@@ -81,11 +82,12 @@ const IssueList: React.FC = () => {
             <ListItemText primary={issue.title} secondary={
               <Typography component="span">
                 <Grid component="span">
-                  <span>Labels:</span>{' '}
-                  <div>{issue.labels.map(({ name }, i) => <Chip key={i} component='div' variant='outlined' size='small' label={name} color={i % 2 === 0 ? 'primary' : 'secondary'} />)}</div>
+                  <small><b>Labels:</b></small>{' '}
+                  <div>{issue.labels && issue.labels.length ? issue.labels.map(({ name }, i) => <Chip key={i} component='div' variant='outlined' size='small' label={name} color={i % 2 === 0 ? 'primary' : 'secondary'} />) : '-0-'}</div>
                 </Grid>
               </Typography>} />
           </ListItem>
+            <Divider variant="inset" component="li" /></ React.Fragment>
         )) : '')}
     </List>
   );
