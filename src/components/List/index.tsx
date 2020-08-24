@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function IssueList() {
+const IssueList: React.FC = () => {
   const classes = useStyles();
   const [itemSelected, setItemSelected] = React.useState<number>();
   const { loading, issues } = useSelector((state: IInitialState) => ({ loading: state.LOADING, issues: state.ISSUES_SELECTED }));

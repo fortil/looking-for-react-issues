@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Home() {
+const Home: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const theme = useTheme();

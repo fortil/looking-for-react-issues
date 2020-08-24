@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Search() {
+const Search: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const issues = useSelector((state: IInitialState) => state.ISSUES);
@@ -94,3 +94,5 @@ export default function Search() {
     </Paper>
   );
 }
+
+export default Search;
