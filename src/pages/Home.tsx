@@ -4,12 +4,12 @@ import { useDispatch } from 'react-redux';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import Search from '../../components/Search';
-import Title from '../../components/Title';
-import List from '../../components/List';
+import Search from '../components/Search';
+import Title from '../components/Title';
+import List from '../components/List';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
-import actions from '../../store/actions';
+import actions from '../store/actions';
 
 const useStyles = makeStyles(() => ({
   box: {

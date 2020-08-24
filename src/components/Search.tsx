@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import actions from '../../store/actions';
-import { IInitialState, IIssue } from '../../store/initial-state';
+import actions from '../store/actions';
+import { IInitialState, IIssue } from '../store/initial-state';
 
 const useStyles = makeStyles((theme) => ({
   root: {
