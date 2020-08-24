@@ -36,6 +36,8 @@ describe('<Search />', () => {
       expect(screen.getByDisplayValue(text)).toBeTruthy();
       expect(container.querySelectorAll('ul')[0]).toBeUndefined();
       expect(screen.getByText('No options')).toBeTruthy();
+    } else {
+      throw new Error('Input was not rendered.');
     }
   });
   test('type something with results', async () => {
@@ -47,6 +49,8 @@ describe('<Search />', () => {
       expect(screen.getByDisplayValue(text)).toBeTruthy();
       expect(screen.getByRole('listbox')).toBeTruthy();
       expect(container.querySelectorAll('.MuiAutocomplete-noOptions')[0]).toBeUndefined();
+    } else {
+      throw new Error('Input was not rendered.');
     }
   });
 });
